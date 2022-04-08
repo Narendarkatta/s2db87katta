@@ -1,0 +1,14 @@
+block content
+    h1= title
+    -let results =[{computer_brand: "HP" ,computer_processor: "i5" ,computer_cost: 1625},{computer_brand:"Dell",computer_processor:"i7",computer_cost:1207},{computer_brand:"Apple",computer_processor:"i5",computer_cost:1434}]
+    div(class="container-fluid")
+     div(class="column")
+        each comp,index in results 
+            div(class="col-sm-2" onclick=`buy(${index})`)  #{comp.computer_brand}  
+            div(class="col-sm-2" onclick=`buy(${index})`)  #{comp.computer_processor}
+            div(class="col-sm-2" onclick=`buy(${index})`)  #{comp.computer_cost}
+script.
+    function buy(n)
+    {
+        alert(`You have purchased item ${n+1}`);
+    }
