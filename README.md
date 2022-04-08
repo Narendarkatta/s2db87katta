@@ -1,2 +1,2 @@
-# s2wb87katta
-WebApps assignment on pug Heorku Server class = Computer Attributes(computer_brand: String, computer_processor: String, computer_cost: number)
+# s2db87katta
+WebApps assignment on Mangoodb <a href=""https://s2db87katta.herokuapp.com/> Heorku Server
