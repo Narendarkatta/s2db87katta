@@ -5,7 +5,15 @@ block content
   p Webapps assignment on PUG
   button(type="button", class="btn btn-primary" onclick="moreClaps()") Press Me
   div(id="target") Clap for me
-  
+
+  br
+  a(href='/laptops') Click here for laptops
+  br
+  a(href='/selector') Click here for selector
+  br
+  a(href='/addmods/?rows=3&cols=4') Click here for addmods
+  br
+  a(href="computer") Computer 
   script.
     var clap_count = 0;
     function moreClaps() {
@@ -13,4 +21,3 @@ block content
     console.log("moreClaps method implemented");
     document.getElementById("target").innerHTML="Clap "+clap_count +" times";
     }
-  a(href="computer") Computer 
