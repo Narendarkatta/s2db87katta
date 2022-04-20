@@ -38,8 +38,16 @@ exports.laptop_create_post = async function (req, res) {
     }
 };
 
-exports.laptop_delete = function (req, res) {
-    res.send('NOT IMPLEMENTED: Laptop delete DELETE ' + req.params.id);
+exports.laptop_delete =async function (req, res) {
+    console.log("delete " + req.params.id)
+    try {
+    result = await Laptop.findByIdAndDelete( req.params.id)
+    console.log("Removed " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send('{"error": Error deleting ${err}}');
+}
 };
 
 exports.laptop_update_put = async function (req, res) {
@@ -63,10 +71,60 @@ exports.laptop_update_put = async function (req, res) {
 exports.laptop_view_all_Page = async function (req, res) {
     try {
         lapto1 = await Laptop.find();
-        res.render('laptops', { title: 'Laptop Search Results', results: lapto1 });
+        res.render('laptops', { title: 'Laptops avialble', results: lapto1 });
     }
     catch (err) {
         res.status(500);
         res.send(`{"error": ${err}}`);
+    }
+};
+
+
+exports.laptop_view_one_Page = async function (req, res) {
+    console.log("single view for id " + req.query.id)
+    try {
+        result = await Laptop.findById(req.query.id)
+        res.render('laptopdetail',
+            { title: 'Laptop Details', toShow: result });
+    }
+    catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+exports.laptop_create_Page = function (req, res) {
+    console.log("create view")
+    try {
+        res.render('laptopcreate', { title: 'Laptop Create' });
+    }
+    catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+exports.laptop_update_Page = async function (req, res) {
+    console.log("update view for item " + req.query.id)
+    try {
+        let result = await Laptop.findById(req.query.id)
+        res.render('laptopupdate', { title: 'Laptop Update', toShow: result });
+    }
+    catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+
+exports.laptop_delete_Page = async function (req, res) {
+    console.log("Delete view for id " + req.query.id)
+    try {
+        result = await Laptop.findById(req.query.id)
+        res.render('laptopdelete', {title: 'Laptop Delete', toShow: result});
+    }
+    catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
     }
 };

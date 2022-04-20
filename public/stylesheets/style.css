@@ -6,3 +6,12 @@ body {
 a {
   color: #00B7FF;
 }
+.laptopAttr {
+  background-color: aquamarine;
+  width: 120px;
+  }
+
+.btn1{
+  float: right;
+  margin-right: 48px;
+}  

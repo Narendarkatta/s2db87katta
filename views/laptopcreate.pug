@@ -1,0 +1,28 @@
+extends layout
+block content
+  h1= title
+  form(id='LaptopForm', action="/resource/laptops", method="POST")
+    div.form-group(class="mx-sm-5 mb-2")
+      label.laptopAttr(for='laptop_brand') Laptop brand
+      input#laptop_brand(type='text', name='laptop_brand' class="form-control")
+    div.form-group(class="mx-sm-5 mb-2")
+      label.laptopAttr(for='laptop_model') Laptop model
+      input#laptop_model(type='text', name='laptop_model' class="form-control")  
+    div.form-group(class="mx-sm-5 mb-2")
+      label.laptopAttr(for='laptop_cost') Laptop cost
+      input#laptop_cost(type='number', name='laptop_cost' class="form-control")
+    input(type="submit" class="mx-sm-5 mb-2 btn btn-primary")
+  script.
+    document.forms['LaptopForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      fetch(event.target.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target)) 
+      }).then((resp) => {
+        return resp.json(); 
+      }).then((body) => {
+        alert("Save succeded")
+      }).catch((error) => {
+        alert("Save failed " + error )
+      });
+    });

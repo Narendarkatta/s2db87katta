@@ -1,0 +1,21 @@
+extends layout
+block content
+  h1= title
+  - let laptopid = toShow._id
+  - let laptopbrand = toShow.laptop_brand
+  - let laptopcost = toShow.laptop_cost
+  - let laptopmodel = toShow.laptop_model
+  div
+    table#pickle.table.table-hover.table-striped.table-bordered
+      thead
+          tr
+              th Laptop ID
+              th Laptop Brand
+              th Laptop Model
+              th Laptop Cost
+      tbody
+          tr
+              th(scope='row') 1
+              td #{laptopbrand}
+              td #{laptopmodel}
+              td #{laptopcost}

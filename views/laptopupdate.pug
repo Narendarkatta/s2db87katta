@@ -1,0 +1,38 @@
+extends layout
+block content
+  h1= title
+
+  - let laptopid = toShow._id
+  - let laptop_brand = toShow.laptop_brand
+  - let laptop_cost = toShow.laptop_cost
+  - let laptop_model = toShow.laptop_model
+  div.row(class='mb-2')
+    div.mx-sm-5 ID is
+    div.mx-sm-5 #{laptopid}
+  - let actionid = "/resource/laptops/" + laptopid
+  form(id='laptopForm', action= actionid, method="PUT")
+    div.form-group(class="mx-sm-5 mb-2")
+      label.laptopAttr(for='laptop_brand') Laptop brand
+      input#laptop_brand(type='text' name='laptop_brand' class="form-control")
+    div.form-group(class="mx-sm-5 mb-2")
+      label.laptopAttr(for='laptop_model') Laptop model
+      input#laptop_model(type='text' name='laptop_model' class="form-control")
+    div.form-group(class="mx-sm-5 mb-2")
+      label.laptopAttr(for='laptop_cost') Laptop cost
+      input#laptop_cost(type='number' name='laptop_cost' class="form-control")
+    input(type="submit" class="mx-sm-5 mb-2 btn btn-success")
+
+  script.
+    document.forms['laptopForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      fetch(event.target.action, {
+        method: 'PUT',
+        body: new URLSearchParams(new FormData(event.target)) 
+      }).then((resp) => {
+        return resp.json(); 
+      }).then((body) => {
+        alert("Update succeded")
+      }).catch((error) => {
+      alert("Update failed " + error )
+      });
+    });
