@@ -6,19 +6,22 @@ var logger = require("morgan");
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-passport.use(new LocalStrategy( 
-  function(username, password, done) { 
-    Account.findOne({ username: username }, function (err, user) { 
-      if (err) { return done(err); } 
-      if (!user) { 
-        return done(null, false, { message: 'Incorrect username.' }); 
-      } 
-      if (!user.validPassword(password)) { 
-        return done(null, false, { message: 'Incorrect password.' }); 
-      } 
-      return done(null, user); 
-    }); 
-  }))
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    Account.findOne({ username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      else if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      else {
+        return done(null, user);
+      }
+    });
+  })
+);
 
 const connectionString =
   "mongodb+srv://demo:demo@cluster0.wuvl3.mongodb.net/learnMongo?retryWrites=true&w=majority";
@@ -38,6 +41,20 @@ var addmodsRouter = require("./routes/addmods");
 var selectorRouter = require("./routes/selector");
 var resourceRouter = require("./routes/resource");
 var app = express();
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(require('express-session')({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
+}));
 
 app.use(passport.initialize()); 
 app.use(passport.session()); 
