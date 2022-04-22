@@ -1,6 +1,9 @@
 extends layout
 block content
   h1= title
+  if (toShow == null)
+    h2 No instance to delete
+  else
   - let laptopid = toShow._id
   - let laptopbrand = toShow.laptop_brand
   - let laptopcost = toShow.laptop_cost
