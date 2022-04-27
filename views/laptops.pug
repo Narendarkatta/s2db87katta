@@ -4,11 +4,18 @@ block content
   h1= title
   p Hi #{title}
   - let items = results
+    p Click here to add new item to the collection
+    button(class="btn btn-success m-2" onclick="dispatch('/cars/create')") Create
   div(class="container-fluid")
     div(class="row")
       each laptops, index in items
+        - let destination = `dispatch(\"/laptops/update?id=${laptops._id}\")`
+        - let destination1 = `dispatch(\"/laptops/detail?id=${laptops._id}\")`
+        - let destination2 = `dispatch(\"/laptops/delete?id=${laptops._id}\")`
         div(class="col-sm-2" onclick=`buy(${index+1})`) #{laptops._id} #{laptops.laptop_brand} - #{laptops.laptop_model} - $#{laptops.laptop_cost}
          button.btn( class="btn-primary ml-1", onclick= `dispatch(\"/laptops/update/?id=${laptops._id}\")` ) Update
+         button.btn( class="btn-info ml-1", onclick= destination1) Detail
+         button.btn( class="btn-danger ml-1", onclick= destination2) Delete
   script.
     function buy(index){
       alert(`You purchased item ${index}`);
